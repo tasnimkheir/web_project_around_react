@@ -16,4 +16,3 @@ Reusable Components: Modularized components for the header, main content, footer
 Responsive Design: Optimized for mobile and desktop viewing.
 API Integration: Retrieves user profile data and location cards from an external API.
 Installation
-
