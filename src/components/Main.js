@@ -1,91 +1,67 @@
-import favIcon from "../images/around.png";
-import profile from "../images/profile.jpg";
-import editAvatar from "../images/edit_avatar.png";
-import editButtonProfile from "../images/editbuttonprofile.svg";
-import addButtonProfile from "../images/addbuttonprofile.png";
-import closeIcon from "../images/Close-icon.svg";
-import PopupWithForm from "./PopupWithForm";
-import Card from "./Card";
-
-import { useContext } from "react";
-import React from "react";
-import CurrentUserContext from "../contexts/CurrentUserContext.js";
+import avatarEdit from "../images/editprofile.svg"
+import editIcon from "../images/edit__vector.svg"
+import addIcon from "../images/add__button.svg"
+import Card from "./Card"
+import { useContext } from "react"
+import { CurrentUserContext } from "../contexts/CurrentUserContext"
 
 export default function Main({
-  onEditAvatarClick,
   onEditProfileClick,
   onAddPlaceClick,
-  cards,
+  onEditAvatarClick,
+  cards, 
   onCardClick,
   onCardLike,
-  onCardDelete,
-}) {
-  const currentUser = useContext(CurrentUserContext);
-  if (!currentUser) return null;
+  onCardDelete
+}){
 
-  return (
-    <main className="content">
-      <section className="profile">
-        <img src={currentUser.avatar} alt="perfil" className="profile__image" />
-        <img
-          src={editAvatar}
-          alt="editavatar"
-          className="profile__edit-avatar"
-          onClick={onEditAvatarClick}
-        />
-        <div className="profile__info">
-          <div className="profile__name">
-            <p className="profile__text"> {currentUser.name} </p>
-            <img
-              src={editButtonProfile}
-              alt="editar"
-              className="profile__edit-button"
-              onClick={onEditProfileClick}
-            />
-          </div>
-          <p className="profile__profession"> {currentUser.about} </p>
-        </div>
-        <img
-          src={addButtonProfile}
-          alt="adicionar"
-          className="profile__add-button"
-          onClick={onAddPlaceClick}
-        />
-      </section>
-
-      <section className="elements" />
-      <template className="elements">
-        {cards.map((card) => (
-          <Card
-            key={card._id}
-            card={card}
-            onCardClick={onCardClick}
-            onCardLike={onCardLike}
-            onCardDelete={onCardDelete}
-          />
-        ))}
-      </template>
-
-      <div className="popup" id="popup-confirmation">
-        <div className="popup__overlay" />
-        <form
-          id="form-confirmation"
-          className="popup__confirmation-form popup__form"
-        >
+  const currentUser= useContext(CurrentUserContext)
+  if (!currentUser) return null 
+    return(
+        <main className="content">
+    {/*-----------------------------AREA DO PERFIL---------------------------*/}
+    <section className="profile">;
+      <div className="profile__container">
+        <div className="profile__avatar-container" onClick={onEditAvatarClick}>
           <img
-            src={closeIcon}
-            alt="Botão Fechar"
-            className="popup__confirmation-button-closed"
+            src={currentUser.avatar}
+            alt="imagem de perfil"
+            className="profile__image"
           />
-          <h2 className="popup__confirmation-header">Tem certeza?</h2>
-          <button
-            type="submit"
-            className="popup__confirmation-button-create popup__button"
-          >
-            Sim
-          </button>
-        </form>
+          <img
+            src={avatarEdit}
+            alt="icone caneta"
+            className="profile__avatar-edit"
+          />
+        </div>
+        <h1 className="profile__name"> {currentUser.name} </h1>
+        <p className="profile__area"> {currentUser.about} </p>
+        <button type="button" className="profile__edit-button" onClick={onEditProfileClick}>
+          <img
+            src={editIcon}
+            alt="icone de editar algo, uma caneta"
+          />
+        </button>
+        <button type="button" className="profile__add-button" onClick={onAddPlaceClick}>
+          <img
+            src={addIcon}
+            alt="símbolo de adição"
+          />
+        </button>
       </div>
-    </main>
-  );
+    </section>
+<section className="elements">
+      {cards.map((item) => (
+        <Card 
+        key={item._id} 
+        data={item}
+        onCardClick={onCardClick}
+        // onDeleteClick={onDeleteClick} confirmation without support yet
+        onCardLike={onCardLike} 
+        onCardDelete={onCardDelete}
+        />
+      ))}
+    </section>
+  </main>
+    );
 }

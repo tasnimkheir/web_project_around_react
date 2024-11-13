@@ -1,63 +1,60 @@
-import React from "react";
+import React, {useState} from "react";
 import PopupWithForm from "./PopupWithForm";
 
 export default function NewCard({ isOpen, onClose, onAddPlaceSubmit }) {
-  const [title, setTitle] = React.useState("");
-  const [link, setLink] = React.useState("");
-  const [isPatching, setIsPatching] = React.useState(false);
-  function handleChangeTitle(e) {
-    setTitle(e.target.value);
-  }
+    const [title, setTitle] = useState("");
+    const [link, setLink] = useState("");
+    const [isPatching, setIsPatching] = React.useState(false);
 
-  function handleChangeLink(e) {
-    setLink(e.target.value);
-  }
+    function handleChangeTitle(e) {
+        setTitle(e.target.value);
+    }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    setIsPatching(true);
-    onAddPlaceSubmit({
-      name: title,
-      link,
-    }).finally(() => {
-      setIsPatching(false);
-      setTitle("");
-      setLink("");
-    });
-  }
+    function handleChangeLink(e) {
+        setLink(e.target.value); 
+    }
 
-  return (
-    <PopupWithForm
-      title="Novo Local"
-      name="card"
-      isOpen={isOpen}
-      onClose={onClose}
-      onSubmit={handleSubmit}
-      textBtn={isPatching ? "Salvando..." : "Salvar"}
-    >
-      <input
-        type="text"
-        className="popup__card-title popup__input"
-        name="name"
-        minLength="2"
-        maxLength="30"
-        placeholder="Título"
-        required
-        value={title}
-        onChange={handleChangeTitle}
-      />
-      <span className="popup__error-visible input-title-error"></span>
-      <input
-        id="input-url"
-        type="url"
-        className="popup__card-url popup__input"
-        name="link"
-        placeholder="Link da Imagem"
-        required
-        value={link}
-        onChange={handleChangeLink}
-      />
-      <p className="input-link-error popup__error"></p>
-    </PopupWithForm>
-  );
+    function handleSubmit(e) {
+        e.preventDefault();
+        setIsPatching(true);
+        onAddPlaceSubmit({
+        name: title,
+        link,
+        });
+    }
+    return(
+        <PopupWithForm 
+        name="add-post" 
+        title="Novo Local"
+        isOpen={isOpen}
+        onClose={onClose}
+        onSubmit={handleSubmit}
+        textBtn={isPatching ? "Criando..." : "Criar"}>
+        <input
+          name="name"
+          type="text"
+          className="popup__input"
+          id="title"
+          placeholder="Título"
+          minLength={2}
+          maxLength={30}
+          required
+          value={title}
+          onChange={handleChangeTitle}
+        />
+        <span className="popup__error" id="title-error" />
+        <input
+          name="link"
+          type="url"
+          className="popup__input"
+          id="image-link"
+          placeholder="Link de imagem"
+          required
+          value={link}
+          onChange={handleChangeLink}
+        />
+        <span className="popup__error" id="image-link-error" />
+        </PopupWithForm>
+
+    )
 }

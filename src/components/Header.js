@@ -1,9 +1,13 @@
-import favIcon from "../images/around.png";
+import favIcon from "../images/favicon.svg"
 
 export default function Header() {
-  return (
+    return (
     <header className="header">
-      <img src={favIcon} alt="Logo" className="header__logo" />
+        <img
+        src={favIcon}
+        alt="logo around the us"
+        className="header__logo"
+        />
     </header>
-  );
+    );
 }

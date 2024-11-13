@@ -1,19 +1,23 @@
-import close from "../images/Close-icon.svg";
+import closeIcon from "../images/CloseIcon.svg"
 
-export default function ImagePopup({ card, onClose }) {
-  return (
-    <div className={`popup popup-image ${card ? "popup__open" : ""}`}>
-      <div className="popup__overlay"></div>
-      <div className="popup__image-content">
-        <img
-          src={close}
-          alt="Botão Fechar"
-          className="popup__image-button-closed"
-          onClick={onClose}
-        />
-        <img src={card.link} alt={card.name} className="popup__image-photo" />
-        <p className="popup__image-name">{card.name}</p>
+export default function ImagePopup({ card,  isOpen, onClose}){
+    return(
+        <section className={`popup popup_type_image ${isOpen ? 'popup_opened' : ''}`} id="PopupImage">
+            <div className="popup__content-image">
+                <button className="popup__type-close" id="CloseImagePopup" onClick={onClose}>
+                <img
+                    src={closeIcon}
+                    className="popup__icon popup__icon-close"
+                    alt="simbolo de X, fechar"
+                />
+                </button>
+                {card && (
+          <>
+            <img src={card.link} alt={card.name} className="popup__image" />
+            <p className="popup__paragraph"> {card.name} </p>
+          </>
+        )}
       </div>
-    </div>
-  );
+        </section>
+    );
 }

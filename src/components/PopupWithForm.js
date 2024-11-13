@@ -1,47 +1,18 @@
-import closeIcon from "../images/Close-icon.svg";
+import closeIcon from "../images/CloseIcon.svg"
 
-export default function PopupWithForm({
-  name,
-  title,
-  children,
-  isOpen,
-  onClose,
-  formClass,
-  headerClass,
-  buttonClass,
-  onSubmit,
-  textBtn,
-}) {
-  return (
-    <div
-      className={`popup popup_type_${name} ${isOpen ? "popup__open" : ""}`}
-      id="popup-perfil"
-    >
-      <div className="popup__overlay" />
-      <form
-        id={name}
-        className={`${formClass} popup__form `}
-        noValidate=""
-        onSubmit={(e) => {
-          e.preventDefault();
-          onSubmit && onSubmit(e);
-        }}
-      >
-        <img
-          src={closeIcon}
-          alt="Botão Fechar"
-          className="popup__button-closed"
-          onClick={onClose}
-        />
-        <h2 className={`${headerClass} popup__header`}>{title}</h2>
-        {children}
-        <button
-          type="submit"
-          className={`${buttonClass} popup__button-create popup__button`}
-        >
-          {textBtn}
-        </button>
-      </form>
-    </div>
-  );
+export default function PopupWithForm({ title, name, children, isOpen, onClose, isDeleteConfirmation, onSubmit, textBtn }) {
+    return(
+        <div className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>
+            <div className="popup__content">
+                <button className="popup__close-button" type="button" onClick={onClose}>
+                <img src={closeIcon} alt="Fechar" className="popup__close-icon" />
+                </button>
+                <form className="popup__form" name={name} onSubmit={onSubmit}>
+                    <h3 className="popup__title">{title}</h3>
+                {children}
+          <button className="popup__button" type="submit"> {textBtn} </button>
+                </form>
+            </div>
+        </div>
+    );
 }

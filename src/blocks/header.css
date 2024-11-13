@@ -1,18 +1,33 @@
 .header {
-  max-width: 882px;
-  padding: 45px 0 40px;
-  margin: 0 auto;
+  max-width: 880px;
+  margin: 0 auto 40px;
+  padding: 45px 0 0;
   border-bottom: 1px solid #545454;
 }
 
-@media screen and (max-width: 900px) {
-  .header {
-    margin-left: 15px;
-  }
+.header__logo{
+  width: 173px;
+  height: 33px;
+  margin-bottom: 31px;
 }
 
-@media screen and (max-width: 550px) {
-  .header {
-    margin-left: 27px;
+.header__line{
+  padding-top: 0;
+}
+
+@media screen and (max-width: 768px){
+  .header{
+    padding-top: 28px;
+    margin-left: 0;
+  }
+
+  .header__logo{
+    width: 100vw;
+    height: 24px;
+    margin-bottom: 32px;
+  }
+
+  .header__line{
+    width: 100vw;
   }
 }

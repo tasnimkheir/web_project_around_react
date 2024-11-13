@@ -1,57 +1,46 @@
-import React from "react";
-import PopupWithForm from "./PopupWithForm.js";
+import React, { useState, useContext, useRef } from 'react';
+import {CurrentUserContext }from '../contexts/CurrentUserContext';
+import PopupWithForm from './PopupWithForm';
 
-import CurrentUserContext from "../contexts/CurrentUserContext.js";
+export default function EditAvatar ({ isOpen, onClose, onUpdateAvatar }) {
+    const currentUser = useContext(CurrentUserContext);
+    const avatarRef = useRef("");
+    const [link, setLink] = useState("");
+    const [isPatching, setIsPatching] = React.useState(false);
 
-export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
-  const avatarRef = React.useRef();
-  const [link, setLink] = React.useState("");
+    React.useEffect(() => {
+        setLink(currentUser.avatar);
+      }, [currentUser]);
 
-  const currentUser = React.useContext(CurrentUserContext);
+      function handleSubmit(e) {
+        e.preventDefault();
+        setIsPatching(true);
+        onUpdateAvatar({
+          avatar: avatarRef.current.value, 
+        });
+      }
 
-  const [isPatching, setIsPatching] = React.useState(false);
-
-  React.useEffect(() => {
-    setLink(currentUser.avatar);
-  }, [currentUser]);
-
-  React.useEffect(() => {
-    if (!isOpen) {
-      setIsPatching(false);
-    }
-  }, [isOpen]);
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    setIsPatching(true);
-    onUpdateAvatar({
-      avatar: avatarRef.current.value,
-    });
-  }
-
-  return (
-    <PopupWithForm
-      title="Alterar a foto do perfil"
-      name="form-avatar"
-      formClass={"popup__avatar-form"}
-      headerClass={"popup__avatar-header"}
-      buttonClass={"popup__avatar-button-create"}
-      isOpen={isOpen}
-      onClose={onClose}
-      onSubmit={handleSubmit}
-      textBtn={isPatching ? "Salvando..." : "Salvar"}
-    >
-      <input
-        className="popup__avatar-url popup__input"
-        id="input-link"
-        placeholder="Link da imagem"
-        type="url"
-        name="avatarLink"
-        ref={avatarRef}
-        defaultValue={link}
-        required
-      />
-      <p className="popup__error-visible input-link-error"></p>
-    </PopupWithForm>
-  );
+      return (
+        <PopupWithForm 
+        name="edit-avatar" 
+        title="Alterar a foto de perfil"
+        isOpen={isOpen}
+        onClose={onClose}
+        onSubmit={handleSubmit}
+        textBtn={isPatching ? "Salvando..." : "Salvar"}>
+        <input
+          type="url"
+          className="popup__input"
+          id="input-link"
+          name="avatarLink"
+          placeholder="Link da imagem"
+          required
+          ref={avatarRef}
+          defaultValue={link} 
+        />
+        <span className="input-link-error popup__error" id="input-link-error">
+          Por favor, introduza um endereço da web.
+        </span>
+        </PopupWithForm>
+      )
 }

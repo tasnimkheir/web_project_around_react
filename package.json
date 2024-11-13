@@ -12,14 +12,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
-    
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -38,9 +34,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "gh-pages": "^6.1.1"
-  },
-  "homepage": "https://tasnimkheir.github.io/web_project_around_react"
+  }
 }

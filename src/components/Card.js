@@ -1,67 +1,48 @@
-import trash from "../images/Trash.svg";
-import like from "../images/like.png";
-
 import { useContext } from "react";
-import CurrentUserContext from "../contexts/CurrentUserContext.js";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-export default function Card({ card, onCardClick, onCardLike, onCardDelete }) {
-  const { link, likes, name, owner } = card;
-  const currentUser = useContext(CurrentUserContext);
+export default function Card({ data, onCardClick, onCardDelete, onCardLike }) {
+    const {link, likes, name, owner} = data;
+    const currentUser = useContext(CurrentUserContext);
 
-  const isOwn = owner._id === currentUser._id;
+    const isOwn = owner._id === currentUser._id;
 
-  const cardDeleteButtonClassName = `elements__image-trash ${
-    isOwn ? "element__button_trash_visible" : "element__button_trash_hidden"
-  }`;
+    const cardDeleteButtonClassName = `element__button_trash ${
+        isOwn ? "element__button_trash_visible" : "element__button_trash_hidden"
+      }`;
 
-  const isLiked = likes.some((user) => user._id === currentUser._id);
+    const isLiked = likes.some((user) => user._id === currentUser._id);
 
-  const cardLikeButtonClassName = `elements__image-like ${
-    isLiked ? "elements__image-like_active" : ""
-  }`;
+    const cardLikeButtonClassName = `element__button ${isLiked ? "elements__icon-active" : ""}`;
 
-  function handleClick() {
-    onCardClick(card);
-  }
+    const handleClick = () => {
+        onCardClick(data);  
+      };
+      
+      const handleLikeClick = () => {
+        onCardLike(data);
+      };
 
-  const handleLikeClick = () => {
-    onCardLike(card);
-  };
-
-  const handleDeleteClick = () => {
-    onCardDelete(card);
-  };
-
-  return (
-    <article className="elements__card" key={card._id}>
-      <img
-        className="elements__image"
-        src={card.link}
-        alt={card.name}
-        onClick={handleClick}
-      />
-
+      const handleDeleteClick = () => {
+        onCardDelete(data); 
+      };
+      
+      
+    return(
+        <div className="element">
       {isOwn && (
-        <img
-          className={cardDeleteButtonClassName}
-          onClick={handleDeleteClick}
-          src={trash}
-          alt={""}
-        />
+        <button className={cardDeleteButtonClassName} type="button" onClick={handleDeleteClick}>
+        </button>
       )}
-
-      <div className="elements__text">
-        <h1 className="elements__title">{card.name}</h1>
-        <div className="elements__info">
-          <img
-            className={cardLikeButtonClassName}
-            onClick={handleLikeClick}
-            src={like}
-            alt={""}
-          />
-          <p className="elements__count-like">{card.likes.length}</p>
+      <img className="element__image" src={link} alt={name} onClick={handleClick} />
+      <div className="element__container">
+        <h2 className="element__text">{name}</h2>
+        <div className="element__info-like">
+          <button className={cardLikeButtonClassName} type="button" onClick={handleLikeClick}>
+          </button>
+          <span className="elements__likes-number">{likes.length}</span>
         </div>
       </div>
-    </article>
-  );
+    </div>
+    )
 }
