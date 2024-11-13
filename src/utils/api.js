@@ -221,7 +221,7 @@
 
   }
 
-  const api = new Api({
+  export const api = new Api({
     baseUrl: "https://around.nomoreparties.co/v1/web-ptbr-cohort-12",
     headers: {
       authorization: "b3a308ed-c246-4b89-8cdf-bac76edb874d",
@@ -229,4 +229,4 @@
     },
   });
 
-  export default api;
+  export default Api;
